@@ -38,13 +38,28 @@ class ExecutorPrimeOmega:
 
 # --- Módulo Relatorio (Relatórios) ---
 class RelatorioXGeradorZ:
+    def __init__(self):
+        self.relatorios = []
+    
     def gerar_relatorio(self, resultado):
         print(f"[Relatorio] Gerando relatório para: {resultado}")
         # Simula geração de relatório
         time.sleep(1)
         relatorio_gerado = f"relatorio_{resultado}"
         print(f"[Relatorio] Relatório gerado: {relatorio_gerado}")
+        self.relatorios.append(relatorio_gerado)
         comunicacao_fila.put(('relatorio_pronto', relatorio_gerado))
+    
+    def ver(self):
+        """Visualiza todos os relatórios gerados."""
+        print("[Relatorio] Visualizando relatórios:")
+        print("=" * 50)
+        if self.relatorios:
+            for i, relatorio in enumerate(self.relatorios, 1):
+                print(f"{i}. {relatorio}")
+        else:
+            print("Nenhum relatório gerado ainda.")
+        print("=" * 50)
 
     def monitorar(self):
         while True:
